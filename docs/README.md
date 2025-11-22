@@ -48,12 +48,12 @@ Hostlink is an agent-based task execution system that enables remote software ma
 
 ### Key Features
 
-* **One-Way RSA-PSS Authentication** - Secure agent-to-server communication
-* **Hardware Fingerprinting** - Unique device identification
-* **Remote Task Execution** - Execute shell commands remotely
-* **PostgreSQL Metrics** - Database performance monitoring
-* **Retry Logic** - Exponential backoff for reliability
-* **Atomic Operations** - Safe concurrent file operations
+- **One-Way RSA-PSS Authentication** - Secure agent-to-server communication
+- **Hardware Fingerprinting** - Unique device identification
+- **Remote Task Execution** - Execute shell commands remotely
+- **PostgreSQL Metrics** - Database performance monitoring
+- **Retry Logic** - Exponential backoff for reliability
+- **Atomic Operations** - Safe concurrent file operations
 
 ## Architecture at a Glance
 
@@ -340,8 +340,6 @@ hostlink/
 └── test/                # Test suites
 ```
 
-See [CLAUDE.md](../CLAUDE.md) for detailed development guidelines.
-
 ## Contributing
 
 Contributions are welcome! Please:
@@ -356,7 +354,6 @@ Contributions are welcome! Please:
 
 ### Project Files
 
-- [CLAUDE.md](../CLAUDE.md) - Development guidelines for AI assistants
 - [TODO.md](../TODO.md) - Project todos and roadmap
 
 ### External Links
