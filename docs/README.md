@@ -7,6 +7,7 @@ Welcome to the Hostlink documentation! This directory contains comprehensive gui
 ### 📚 Core Documentation
 
 1. **[Getting Started Guide](GETTING-STARTED.md)** - Quick start guide for new users
+
    - Installation instructions
    - Running control plane and agents
    - Creating and executing tasks
@@ -14,6 +15,7 @@ Welcome to the Hostlink documentation! This directory contains comprehensive gui
    - Common use cases and troubleshooting
 
 2. **[Architecture Documentation](ARCHITECTURE.md)** - Comprehensive system architecture
+
    - High-level architecture diagrams
    - Detailed component descriptions
    - Flow diagrams (registration, task execution, metrics)
@@ -46,12 +48,12 @@ Hostlink is an agent-based task execution system that enables remote software ma
 
 ### Key Features
 
-✅ **One-Way RSA-PSS Authentication** - Secure agent-to-server communication
-✅ **Hardware Fingerprinting** - Unique device identification
-✅ **Remote Task Execution** - Execute shell commands remotely
-✅ **PostgreSQL Metrics** - Database performance monitoring
-✅ **Retry Logic** - Exponential backoff for reliability
-✅ **Atomic Operations** - Safe concurrent file operations
+* **One-Way RSA-PSS Authentication** - Secure agent-to-server communication
+* **Hardware Fingerprinting** - Unique device identification
+* **Remote Task Execution** - Execute shell commands remotely
+* **PostgreSQL Metrics** - Database performance monitoring
+* **Retry Logic** - Exponential backoff for reliability
+* **Atomic Operations** - Safe concurrent file operations
 
 ## Architecture at a Glance
 
@@ -159,6 +161,7 @@ docs/
 ### Hardware Fingerprinting
 
 Each agent generates a unique fingerprint based on:
+
 - Machine ID (`/etc/machine-id`)
 - Hardware hash (CPU, memory, disks)
 - MAC address
@@ -168,6 +171,7 @@ Fingerprints detect hardware changes with 40% similarity threshold.
 ### RSA-PSS Authentication
 
 Agents authenticate to the server using digital signatures:
+
 1. Agent signs message: `AgentID|Timestamp|Nonce`
 2. Server verifies signature with stored public key
 3. Timestamp within ±5 minutes (replay prevention)
@@ -177,11 +181,11 @@ Agents authenticate to the server using digital signatures:
 
 Agents run three background jobs:
 
-| Job | Interval | Purpose |
-|-----|----------|---------|
-| Registration | Once (retry on failure) | Register with control plane |
-| Task Job | 10 seconds | Poll and execute tasks |
-| Metrics Job | 20 seconds | Collect and push PostgreSQL metrics |
+| Job          | Interval                | Purpose                             |
+| ------------ | ----------------------- | ----------------------------------- |
+| Registration | Once (retry on failure) | Register with control plane         |
+| Task Job     | 10 seconds              | Poll and execute tasks              |
+| Metrics Job  | 20 seconds              | Collect and push PostgreSQL metrics |
 
 ### Task States
 
@@ -192,16 +196,19 @@ Agents run three background jobs:
 ## API Endpoints
 
 ### Agent Management
+
 - `POST /api/v1/agents/register` - Register agent
 - `GET /api/v1/agents` - List agents
 - `GET /api/v1/agents/:id` - Get agent details
 
 ### Task Management (Authenticated)
+
 - `POST /api/v1/tasks` - Create task
 - `GET /api/v1/tasks` - List tasks
 - `PUT /api/v1/tasks/:id` - Update task
 
 ### Credentials & Metrics (Authenticated)
+
 - `GET /api/v1/agents/:id/credentials` - Get DB credentials
 - `POST /api/v1/agents/:id/metrics` - Push metrics
 
@@ -223,11 +230,13 @@ See [Database Schema](DATABASE-SCHEMA.md) for complete table definitions.
 ### Environment Variables
 
 **Control Plane**:
+
 - `APP_ENV` - Environment (development/production)
 - `SH_APP_PORT` - Server port (default: 8080)
 - `SH_DB_URL` - Database connection string
 
 **Agent**:
+
 - `SH_CONTROL_PLANE_URL` - Control plane URL
 - `HOSTLINK_TOKEN_ID` - Registration token ID
 - `HOSTLINK_TOKEN_KEY` - Registration token secret
@@ -235,6 +244,7 @@ See [Database Schema](DATABASE-SCHEMA.md) for complete table definitions.
 - `HOSTLINK_FINGERPRINT_PATH` - Fingerprint file path
 
 **hlctl**:
+
 - `HOSTLINK_SERVER_URL` - Control plane URL
 
 See [Configuration Guide](ARCHITECTURE.md#configuration) for all options.
@@ -273,16 +283,19 @@ See [Deployment Guide](ARCHITECTURE.md#deployment) for step-by-step instructions
 ### Common Issues
 
 **Agent won't register**
+
 - Verify control plane URL is reachable
 - Check token credentials are correct
 - Ensure `/var/lib/hostlink` directory exists and is writable
 
 **Tasks not executing**
+
 - Verify agent is running and registered
 - Check agent logs for errors
 - Ensure commands are valid shell syntax
 
 **Authentication errors**
+
 - Verify system time is synchronized (±5 minute window)
 - Check private key exists and is readable
 - Ensure agent ID is saved in state file
@@ -342,10 +355,12 @@ Contributions are welcome! Please:
 ## Additional Resources
 
 ### Project Files
+
 - [CLAUDE.md](../CLAUDE.md) - Development guidelines for AI assistants
 - [TODO.md](../TODO.md) - Project todos and roadmap
 
 ### External Links
+
 - [GORM Documentation](https://gorm.io/docs/) - ORM library
 - [Echo Framework](https://echo.labstack.com/) - HTTP framework
 - [ULID Specification](https://github.com/ulid/spec) - ID format
